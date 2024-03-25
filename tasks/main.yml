@@ -1,0 +1,37 @@
+---
+- name: Execute docker from normal user
+  when: docker_non_root_user
+  block:
+  - name: Post-Install docker, executeable non-root
+    ansible.builtin.user:
+      name: "{{ ansible_user }}"
+      groups: docker
+      append: yes
+
+- name: Setup docker daemon.json
+  block:
+  - name: Create Directory '/etc/docker'
+    file:
+      path: /etc/docker
+      state: directory
+      mode: 0755
+
+  - name: Set config global docker
+    template:
+      src: daemon.json.j2
+      dest: /etc/docker/daemon.json
+      backup: true
+      mode: 0644
+  
+  - name: Restart docker
+    service:
+      name: docker
+      state: restarted
+
+- name: Setup login into registry
+  when: item.auth.docker_login
+  block:
+  - name: Log into private registry and force re-authorization
+    shell: 
+        cmd: docker login -u {{ item.auth.user }} -p {{ item.auth.password }} {{ item.url }}
+    loop: "{{ docker_insecure_registries_conf | list }}"

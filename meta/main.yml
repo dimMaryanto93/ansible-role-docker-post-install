@@ -1,0 +1,29 @@
+galaxy_info:
+  role_name: docker_post_install
+  author: dimasm93
+  description: Docker for linux
+  company: PT. Tabeldata Informatika
+
+  license: license (GPL-2.0-or-later, MIT, etc)
+
+  min_ansible_version: 2.9
+  
+  platforms:
+  - name: Ubuntu
+    versions:
+      - xenial
+      - bionic
+      - focal
+  - name: EL
+    versions:
+      - 7
+      - 8
+
+  galaxy_tags: 
+  - docker
+  - containers
+  - compose
+  - server
+  - system
+
+dependencies: []
