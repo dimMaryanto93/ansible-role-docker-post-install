@@ -3,8 +3,8 @@ docker_storage_driver: overlay2
 docker_insecure_registries_enabled: true
 docker_non_root_user: true
 registry_domain: private.nexus-registry.docker.local
-nexus_username: nke-user
-nexus_password: nke-user
+registry_username: nke-user
+registry_password: nke-user
 ### uncomment this when `docker_insecure_registries_enabled` is true
 docker_insecure_registries_conf:
   - url: "{{ registry_domain }}:8087"

@@ -24,7 +24,7 @@
   - name: Add IP address of all hosts to all hosts
     lineinfile:
       dest: /etc/hosts
-      line: "{{ nexus_oss_ip }}\t{{registry_domain}}"
+      line: "{{ registry_address }}\t{{registry_domain}}"
       state: present
   - name: Restart docker
     service:
