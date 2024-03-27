@@ -2,15 +2,18 @@
 docker_storage_driver: overlay2
 docker_insecure_registries_enabled: true
 docker_non_root_user: true
+registry_domain: private.nexus-registry.docker.local
+nexus_username: nke-user
+nexus_password: nke-user
 ### uncomment this when `docker_insecure_registries_enabled` is true
 docker_insecure_registries_conf:
-  - url: "private.nexus-registry.docker.local:8087"
+  - url: "{{ registry_domain }}:8087"
     auth:
-      docker_login: false      
-      user: example
-      password: secret
-  - url: "private.nexus-registry.docker.local:8086"
+      docker_login: true      
+      user: "{{ nexus_username }}"
+      password: "{{ nexus_password }}"
+  - url: "{{ registry_domain }}:8086"
     auth:
-      docker_login: false      
-      user: example
-      password: secret
+      docker_login: true      
+      user: "{{ nexus_username }}"
+      password: "{{ nexus_password }}"

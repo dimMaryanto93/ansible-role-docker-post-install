@@ -15,14 +15,17 @@
       path: /etc/docker
       state: directory
       mode: 0755
-
   - name: Set config global docker
     template:
       src: daemon.json.j2
       dest: /etc/docker/daemon.json
       backup: true
       mode: 0644
-  
+  - name: Add IP address of all hosts to all hosts
+    lineinfile:
+      dest: /etc/hosts
+      line: "{{ nexus_oss_ip }}\t{{registry_domain}}"
+      state: present
   - name: Restart docker
     service:
       name: docker
